@@ -27,7 +27,7 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 1. Acessar o repositório /CodPreOrdem no Terminal
 2. No terminal, copiar e colar o seguinte comando:
 ```   
-3. gcc compressorFunctions.c main.c PGMReaderFunctions.c -o cod
+gcc compressorFunctions.c main.c PGMReaderFunctions.c -o cod
 ```
 
 ### 🔧 Compilando Decodificador
@@ -39,9 +39,9 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 ```  
 
 
-### ⚙️ Executando os testes 
+## ⚙️ Executando os testes 
 
-## 🚀 Executando Codificador
+### 🚀 Executando Codificador
 ```
 ./cod <imagem_entrada.pgm> <bitstream.dp> <taxadeCompressão> 
 ``` 
