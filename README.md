@@ -1,6 +1,12 @@
 # projeto_compressor_de_imagens
 Trabalho - Projeto de Compressor de Imagens em Linguagem C | Professor Daniel | Ciências da Computação
 
+### 👓 Equipe
+Miguel Arcanjo
+Thyago da Silva
+Thierry Cavalcante
+Rodrigo Fernandes
+
 # Projeto de Compressor de Imagens em Linguagem C | Prof° Daniel Ferreira
 
 ## 🚀 Começando
