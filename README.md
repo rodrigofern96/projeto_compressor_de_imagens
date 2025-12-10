@@ -41,15 +41,37 @@ gcc Decodificador.c -o dec
 
 
 ### 🚀 Executando Codificador
+
+1. Entre na pasta do codificador
+2. Execute o seguinte comando mudando apenas os parâmetros
+
 ```
 ./cod <imagem_entrada.pgm> <bitstream.dp> <taxadeCompressão> 
 ``` 
 
+## Exemplo:
+```
+./cod img01.pgm bitstreamNOME.dp 8
+```
+
+Obs: Entre com o nome do bitstream a ser criado
+
 ### 🚀 Executando Decodificador
+
+1. Entre na pasta do decodificador
+2. Execute o seguinte comando mudando apenas os parâmetros
 
 ``` 
 ./dec <bitstream.dp> <imagem_saida.pgm> 
 ``` 
+
+## Exemplo:
+
+```
+./dec bitstreamNOME.dp img02.pgm
+```
+
+Obs: Entre com bitstream gerado pelo codificador
 
 ## 📦 Implantação
 
