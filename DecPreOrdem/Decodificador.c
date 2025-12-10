@@ -1,103 +1,101 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-    unsigned char eh_folha;
-    unsigned char cor;
-    struct Node *q1, *q2, *q3, *q4;
-} Node;
+typedef struct QNode {
+    unsigned char folha;
+    unsigned char pixel;
+    struct QNode *q1, *q2, *q3, *q4;
+} QNode;
 
-Node* readNode(FILE *f) {
-    Node *n = calloc(1, sizeof(Node));
-    if (!n){
-        exit(1);
-    }
+QNode* encaminharNo(FILE *f) {
+    QNode *no = calloc(1, sizeof(QNode));
+    if (!no) exit(1);
 
-    fread(&n->eh_folha, 1, 1, f);
+    fread(&no->folha, 1, 1, fp);
 
-    if (n->eh_folha) {
-        fread(&n->cor, 1, 1, f);
+    if (no->folha) {
+        fread(&n->pixel, 1, 1, fp);
     } else {
-        n->q1 = readNode(f);
-        n->q2 = readNode(f);
-        n->q3 = readNode(f);
-        n->q4 = readNode(f);
+        n->1a = encaminharNo(f);
+        n->2a = encaminharNo(f);
+        n->3a = encaminharNo(f);
+        n->4a = encaminharNo(f);
     }
 
-    return n;
+    return no;
 }
 
-void fillImage(Node *n, unsigned char *img, int x, int y, int w, int h, int W){
-    if (n->eh_folha) {
-        for (int i = y; i < y + h; i++)
-            for (int j = x; j < x + w; j++)
-                img[i * W + j] = n->cor;
+void preencher(Quad *no, unsigned char *mat, int px, int py, int w, int h, int largura) {
+    if (no->folha) {
+        for (int i = py; i < py + h; i++)
+            for (int j = px; j < px + w; j++)
+                mat[i * largura + j] = no->pixel;
         return;
     }
 
-    int mw = w / 2;
-    int mh = h / 2;
+    int w2 = w / 2;
+    int h2 = h / 2;
 
-    fillImage(n->q1, img, x,       y,       mw,     mh,     W);
-    fillImage(n->q2, img, x+mw,    y,       w-mw,   mh,     W);
-    fillImage(n->q3, img, x,       y+mh,    mw,     h-mh,   W);
-    fillImage(n->q4, img, x+mw,    y+mh,    w-mw,   h-mh,   W);
+    preencher(no->1a, mat, px,       py,       w2,     h2,     largura);
+    preencher(no->2a, mat, px+w2,    py,       w-w2,   h2,     largura);
+    preencher(no->3a, mat, px,       py+h2,    w2,     h-h2,   largura);
+    preencher(no->4a, mat, px+w2,    py+h2,    w-w2,   h-h2,   largura);
 }
 
-void freeTree(Node *n) {
-    if (!n) return;
-    if (!n->eh_folha) {
-        freeTree(n->q1);
-        freeTree(n->q2);
-        freeTree(n->q3);
-        freeTree(n->q4);
+void liberar(QNode *no) {
+    if (!no) return;
+    if (!no->folha) {
+        liberar(no->1a);
+        liberar(no->2a);
+        liberar(no->3a);
+        liberar(no->4a);
     }
-    free(n);
+    free(no);
 }
 
 int main(int argc, char *argv[]) {
 
     if(argc != 3){
 
-        printf("Formato:\n\t%s <bistreamEntrada.dp> <PGMNomeSaida.pgm>\n", argv[0]);
-        exit(1);
-        
+        printf("Utilização: %s <Entrada.dp> <Saída.pgm>\n", argv[0]);
+        return 1; 
     }
 
 
-    FILE *f = fopen(argv[1], "rb");
-    if (!f) {
-        perror("Erro abrindo bitstream");
+    FILE *fp = fopen(argv[1], "rb");
+    if (!fp) {
+        perror("Erro abrindo bitstream(arquivo)");
         return 1;
     }
 
-    unsigned char tag[2];
-    fread(tag, 1, 2, f);
-    if (tag[0] != 'D' || tag[1] != 'P') {
-        printf("Bitstream inválido!\n");
+    unsigned char assinatura[2];
+    fread(assinatura, 1, 2, fp);
+    if (assinatura[0] != 'D' || assinatura[1] != 'P') {
+        printf("Bitstream(formato) inválido!\n");
         return 1;
     }
 
-    short largura, altura;
-    fread(&largura, sizeof(short), 1, f);
-    fread(&altura, sizeof(short), 1, f);
+    short w, h;
+    fread(&w, sizeof(short), 1, fp);
+    fread(&h, sizeof(short), 1, fp);
 
-    Node *root = readNode(f);
-    fclose(f);
+    QNode *raiz = carregarNo(f);
+    fclose(fp);
 
-    unsigned char *img = calloc(largura * altura, 1);
+    unsigned char *buf = calloc(w * h, 1);
 
-    fillImage(root, img, 0, 0, largura, altura, largura);
+    encaminharNo(raiz, buf, 0, 0, w, h, w);
 
     FILE *out = fopen(argv[2], "wb");
     fprintf(out, "P5\n%d %d\n255\n", largura, altura);
-    fwrite(img, 1, largura * altura, out);
+    fwrite(buf, 1, w * h, out);
     fclose(out);
 
-    free(img);
-    freeTree(root);
+    free(buf);
+    liberar(raiz);
 
     printf("Concluído, imagem reconstruída em P5.\n");
 
     return 0;
 }
+
