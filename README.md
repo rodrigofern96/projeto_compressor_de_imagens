@@ -25,8 +25,9 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 
 ### 🔧 Compilando Codificador
 1. Acessar o repositório /CodPreOrdem para acessar o diretório do codificador
-2. 
-
+```   
+2. gcc encoder.c -o encoder 
+```
 ### 🔧 Compilando Decodificador
 
 ## ⚙️ Executando os testes
