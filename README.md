@@ -7,9 +7,9 @@ Um parágrafo da descrição do projeto vai aqui
 
 ## 🚀 Começando
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+Com este guia, você poderá preparar o projeto no seu computador, fazer a compilação, rodar tanto o codificador quanto o decodificador, e testar a linha de compressão inteira.
 
-Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar o projeto.
+Para saber como usar, consulte a parte que fala sobre a Implantação.
 
 ### 📋 Pré-requisitos
 
@@ -34,47 +34,27 @@ gcc compressorFunctions.c main.c PGMReaderFunctions.c -o cod
 1. Acessar o repositório /DecPreOrdem no Terminal
 2. No terminal, copiar e colar o seguinte comando:
 ```
-3. gcc Decodificador.c -o dec
+gcc Decodificador.c -o dec
 
 ```  
 
 
 ## ⚙️ Executando os testes 
 
+
 ### 🚀 Executando Codificador
 ```
 ./cod <imagem_entrada.pgm> <bitstream.dp> <taxadeCompressão> 
 ``` 
 
-## 🚀 Executando Decodificador
+### 🚀 Executando Decodificador
 
 ``` 
 ./dec <bitstream.dp> <imagem_saida.pgm> 
 ``` 
 
-### 🔩 Analise os testes de ponta a ponta
-
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
-```
-
-### ⌨️ E testes de estilo de codificação
-
-Explique que eles verificam esses testes e porquê.
-
-```
-Dar exemplos
-```
-
 ## 📦 Implantação
 
-Adicione notas adicionais sobre como implantar isso em um sistema ativo
-
-## 🎁 Expressões de gratidão
-
-* Conte a outras pessoas sobre este projeto 📢;
-* Convide alguém da equipe para uma cerveja 🍺;
-* Um agradecimento publicamente 🫂;
-* etc.
+1. Codificador
+2. Decodificador
+3. Imagem PGM imagem_entrada.pgm
