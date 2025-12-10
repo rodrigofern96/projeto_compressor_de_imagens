@@ -24,15 +24,33 @@ Consulte **[Implantação](#-implanta%C3%A7%C3%A3o)** para saber como implantar 
 2. cd projeto_compressor_de_imagens
 
 ### 🔧 Compilando Codificador
-1. Acessar o repositório /CodPreOrdem para acessar o diretório do codificador
+1. Acessar o repositório /CodPreOrdem no Terminal
+2. No terminal, copiar e colar o seguinte comando:
 ```   
-2. gcc encoder.c -o encoder 
+3. gcc compressorFunctions.c main.c PGMReaderFunctions.c -o cod
 ```
+
 ### 🔧 Compilando Decodificador
+1. Acessar o repositório /DecPreOrdem no Terminal
+2. No terminal, copiar e colar o seguinte comando:
+```
+3. gcc Decodificador.c -o dec
 
-## ⚙️ Executando os testes
+```  
 
-Explicar como executar os testes automatizados para este sistema.
+
+### ⚙️ Executando os testes 
+
+## 🚀 Executando Codificador
+```
+./cod <imagem_entrada.pgm> <bitstream.dp> <taxadeCompressão> 
+``` 
+
+## 🚀 Executando Decodificador
+
+``` 
+./dec <bitstream.dp> <imagem_saida.pgm> 
+``` 
 
 ### 🔩 Analise os testes de ponta a ponta
 
