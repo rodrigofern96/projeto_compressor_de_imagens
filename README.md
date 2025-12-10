@@ -3,8 +3,6 @@ Trabalho - Projeto de Compressor de Imagens em Linguagem C | Professor Daniel | 
 
 # Projeto de Compressor de Imagens em Linguagem C | Prof° Daniel Ferreira
 
-Um parágrafo da descrição do projeto vai aqui
-
 ## 🚀 Começando
 
 Com este guia, você poderá preparar o projeto no seu computador, fazer a compilação, rodar tanto o codificador quanto o decodificador, e testar a linha de compressão inteira.
