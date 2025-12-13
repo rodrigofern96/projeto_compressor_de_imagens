@@ -1,43 +1,41 @@
-#include "decoderFunctions.h"
+#include "DecoderFunctions.h"
 #include "PGMWriterFunctions.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[]) {
 
-    if(argc != 3){
-        printf("Utilização:\n\t%s <Entrada.dp> <Saída.pgm>\n", argv[0]);
-        return 1; 
+    if (argc != 3) {
+        printf("Uso: %s <entrada.dp> <saida.pgm>\n", argv[0]);
+        return 1;
     }
 
-    FILE *bistream = fopen(argv[1], "rb");
-    if (!bistream) {
-        perror("Erro abrindo bitstream(arquivo)");
-        return 2;
+    FILE *in = fopen(argv[1], "rb");
+    if (!in) return 2;
+
+    FILE *out = fopen(argv[2], "wb");
+    if (!out) return 3;
+
+    unsigned char magic[2];
+    fread(magic, 1, 2, in);
+
+    if (magic[0] != 'D' || magic[1] != 'P') {
+        printf("Formato inválido\n");
+        return 4;
     }
 
-    FILE *pgm = fopen(argv[2], "wb");
-    if (!pgm) {
-        perror("Erro ao criar pgm");
-        return 2;
-    }
+    short larg, alt;
+    fread(&larg, sizeof(short), 1, in);
+    fread(&alt, sizeof(short), 1, in);
 
-    unsigned char formato[2];
-    fread(formato, 1, 2, bistream);
-    if (formato[0] != 'D' || formato[1] != 'P') {
-        printf("Bitstream(formato) inválido!\n");
-        return 3;
-    }
+    QTree *tree = reconstruirQTree(in);
 
+    escreverPGM(tree, out, larg, alt);
 
-    short int larg, alt;
-    fread(&larg, sizeof(short), 1, bistream);
-    fread(&alt, sizeof(short), 1, bistream);
+    liberarQTree(tree);
 
-    QTree *Qtree = reconstruirQTree(bistream);
-    escreverPGM(Qtree, pgm, larg, alt);
+    fclose(in);
+    fclose(out);
 
-
-    liberarQTree(Qtree);
-    fclose(bistream);
-    fclose(pgm);
+    return 0;
 }
